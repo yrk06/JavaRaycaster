@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import java.awt.*;
 public class GraphicsEngine extends JPanel {
@@ -60,9 +61,9 @@ public class GraphicsEngine extends JPanel {
         cameraPlane = player.cameraPlane;
     }
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(Color.GRAY);
+        //setBackground(Color.GRAY);
         //Run Raycasting Engine
         for(int xPx = 0; xPx < screenSize.intX(); xPx++){
             //Para cada coluna da tela
@@ -130,10 +131,12 @@ public class GraphicsEngine extends JPanel {
             else perpendicularWallDistance = (mapPosition.y - playerPos.y + (1-step.y)/2)/rayDirection.y;
 
             int wallHeight = (int) (screenSize.y/perpendicularWallDistance);
-            
-            int startPixel =(int) (screenSize.y/2 - wallHeight/2);
+
+            int startPixel = (int) (screenSize.y/2 - wallHeight/2);
+            int loopStart = (startPixel < 0) ? 0: startPixel;
 
             int endPixel =(int) (screenSize.y/2 + wallHeight/2);
+            int loopEnd = (endPixel > screenSize.y) ? screenSize.intY(): endPixel;
 
 
             double wallX; //where exactly the wall was hit
@@ -144,13 +147,7 @@ public class GraphicsEngine extends JPanel {
             int xCoord = (int)(wallX*128);
             int lastCoord = -1;
             int color = 0;
-            for(int pixelY = startPixel; pixelY <  endPixel; pixelY ++){
-                if(pixelY < 0){
-                    continue;
-                }
-                if(pixelY >= screenSize.intY()){
-                    continue;
-                }
+            for(int pixelY = loopStart; pixelY <  loopEnd; pixelY ++){
                 int yCoord = (pixelY-startPixel)*128/wallHeight;
                 if(yCoord == lastCoord){
                     frame.setRGB(xPx, pixelY, color);
