@@ -47,7 +47,7 @@ class Vector2{
 public class Main {
 
     static Vector2 mapSize = new Vector2(10,10);
-    static Vector2 resolution = new Vector2(256,256);
+    static Vector2 resolution = new Vector2(480,480);
 
     static int map[][] = {
         {1,1,1,1,1,1,1,1,1,1},
