@@ -148,7 +148,7 @@ public class GraphicsEngine extends JPanel {
             int lastCoord = -1;
             int color = 0;
             for(int pixelY = loopStart; pixelY <  loopEnd; pixelY ++){
-                int yCoord = (pixelY-startPixel)*128/wallHeight;
+                int yCoord = Math.abs((pixelY-startPixel)*128/wallHeight);
                 if(yCoord == lastCoord){
                     frame.setRGB(xPx, pixelY, color);
                     continue;
@@ -169,9 +169,11 @@ public class GraphicsEngine extends JPanel {
         currentFrameTime = System.currentTimeMillis();
         double delta = (currentFrameTime-lastFrameTime)/1000.0;
         lastFrameTime = System.currentTimeMillis();
+        
         if(delta !=0){
             System.out.printf("FPS: %d fps\n",(int)(1/delta));
         }
+        
     }
 
     private Color mixColor(Color a, Color o, double k){
