@@ -127,9 +127,21 @@ public class GraphicsEngine extends JPanel {
             }
 
             double perpendicularWallDistance;
-            if (side == 0) perpendicularWallDistance = (mapPosition.x - playerPos.x + (1-step.x)/2)/rayDirection.x;
-            else perpendicularWallDistance = (mapPosition.y - playerPos.y + (1-step.y)/2)/rayDirection.y;
+            
 
+            double yDist = mapPosition.y - playerPos.y + (1-step.y)/2;
+            double xDist = mapPosition.x - playerPos.x + (1-step.x)/2;
+
+            if (side == 0) perpendicularWallDistance = xDist/rayDirection.x;
+            else perpendicularWallDistance = yDist/rayDirection.y;
+
+            boolean euclidian = false; //TODO: add to class and expose.
+
+            if(euclidian) {
+                perpendicularWallDistance = rayDirection.len()*perpendicularWallDistance;
+            }
+            
+            
             int wallHeight = (int) (screenSize.y/perpendicularWallDistance);
 
             int startPixel = (int) (screenSize.y/2 - wallHeight/2);
