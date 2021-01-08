@@ -176,7 +176,7 @@ public class GraphicsEngine extends JPanel {
             g.drawLine(xPx, startPixel, xPx, endPixel);*/
         }
         
-        g.drawImage(frame, 0, 0, screenSize.intX(), screenSize.intY(), null);
+        g.drawImage(frame, 0, 0, getSize().width, getSize().height, null);
         clearFrame();
         currentFrameTime = System.currentTimeMillis();
         double delta = (currentFrameTime-lastFrameTime)/1000.0;
